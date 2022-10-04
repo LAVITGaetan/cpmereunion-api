@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 require('dotenv').config();
 const cors = require('cors');
+const helmet = require('helmet')
 
 // Import API routes
 const adherentRoutes = require('./api/routes/adherent')
@@ -30,6 +31,9 @@ app.set('view engine', 'ejs')
 // Static Files
 app.use(express.static('public'));
 
+//Security
+app.disable('x-powered-by')
+app.use(helmet())
 // ROUTES API
 app.use('/api/adherents', adherentRoutes)
 app.use('/api/contacts', contactRoutes)
