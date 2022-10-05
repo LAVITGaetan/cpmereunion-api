@@ -51,29 +51,34 @@ router.post('/', verify, async (req, res) => {
 
 // Login
 router.post('/login', limiter, async (req, res) => {
-    if (req.body.email && req.body.identifiant) {
-        // Check if email exist
-        const user = await User.findOne({ email: req.body.email })
-        if (!user) {
-            res.send({ message: 'Identifiant incorrect' })
+    try {
+        if (req.body.email && req.body.identifiant) {
+            // Check if email exist
+            const user = await User.findOne({ email: req.body.email })
+            if (!user) {
+                res.send({ message: 'Identifiant incorrect' })
+            }
+    
+            // Check if passwords match
+            const validPassword = await bcrypt.compare(req.body.identifiant, user.identifiant)
+            if (!validPassword) return res.send({ message: 'Mot de passe incorrect' })
+    
+            // Set token
+            const token = jwt.sign({ _id: user._id, role: user.role }, process.env.SECRET_TOKEN, { expiresIn: "24h" });
+            res.cookie("token", token, {
+                secure: true,
+                httpOnly: true,
+                maxAge: 86400 * 1000
+            })
+            res.header('auth-token', token).send({ token: token });
         }
-
-        // Check if passwords match
-        const validPassword = await bcrypt.compare(req.body.identifiant, user.identifiant)
-        if (!validPassword) return res.send({ message: 'Mot de passe incorrect' })
-
-        // Set token
-        const token = jwt.sign({ _id: user._id, role: user.role }, process.env.SECRET_TOKEN, { expiresIn: "24h" });
-        res.cookie("token", token, {
-            secure: true,
-            httpOnly: true,
-            maxAge: 86400 * 1000
-        })
-        res.header('auth-token', token).send({ token: token });
+        else {
+            res.send({ message: 'Email and password must be filled' })
+        }
+    } catch (err) {
+        res.send({message: err.message})
     }
-    else {
-        res.send({ message: 'Email and password must be filled' })
-    }
+    
 
 })
 
