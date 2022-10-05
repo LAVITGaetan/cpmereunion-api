@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const cors = require('cors');
 const helmet = require('helmet')
+const cookieParser = require('cookie-parser');
 
 // Import API routes
 const adherentRoutes = require('./api/routes/adherent')
@@ -24,6 +25,7 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // Set view engine
 app.set('view engine', 'ejs')
@@ -34,6 +36,7 @@ app.use(express.static('public'));
 //Security
 app.disable('x-powered-by')
 app.use(helmet())
+
 // ROUTES API
 app.use('/api/adherents', adherentRoutes)
 app.use('/api/contacts', contactRoutes)
