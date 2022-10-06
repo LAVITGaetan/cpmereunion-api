@@ -20,17 +20,11 @@ exports.getMandataire = async (req, res) => {
 }
 
 exports.addMandataire = async (req, res) => {
-    if (req.file) {
-        path = req.file.path.substring(7)
-    }
-    else {
-        path = req.body.logo || 'none'
-    }
     const mandataire = new Mandataire({
         nom: req.body.nom,
         prenom: req.body.prenom,
         description: req.body.description,
-        logo: path
+        logo: req.body.logo
     });
     try {
         await mandataire.save();
