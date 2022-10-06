@@ -23,7 +23,8 @@ router.post('/',
     Controller.addMandataire)
 
 // Update mandataire
-router.patch('/:id', verify, upload.single('mandataireLogo'),
+router.patch('/:id', 
+    verify,
     mandataireSchema,
     Validate,
     Controller.editMandataire)
