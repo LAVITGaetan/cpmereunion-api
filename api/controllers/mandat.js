@@ -20,12 +20,6 @@ exports.getMandat = async (req, res) => {
 }
 
 exports.addMandat = async (req, res) => {
-    if (req.file) {
-        path = req.file.path.substring(7)
-    }
-    else {
-        path = req.body.logo || 'none'
-    }
     const mandat = new Mandat({
         label: req.body.label,
         nom: req.body.nom,
@@ -34,7 +28,7 @@ exports.addMandat = async (req, res) => {
         composition: req.body.composition,
         duree: req.body.duree,
         renouvellement: req.body.renouvellement,
-        logo: path
+        logo: req.body.logo
     });
     try {
         await mandat.save();
@@ -45,12 +39,6 @@ exports.addMandat = async (req, res) => {
 }
 
 exports.editMandat = async (req, res) => {
-    if (req.file) {
-        path = req.file.path.substring(7)
-    }
-    else {
-        path = req.body.logo || 'none'
-    }
     const mandat = {
         label: req.body.label,
         nom: req.body.nom,
@@ -59,7 +47,7 @@ exports.editMandat = async (req, res) => {
         composition: req.body.composition,
         duree: req.body.duree,
         renouvellement: req.body.renouvellement,
-        logo: path
+        logo: req.body.logo
     };
     try {
         const updatedMandat = await Mandat.findByIdAndUpdate(req.params.id, mandat, { new: true });

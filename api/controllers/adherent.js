@@ -19,12 +19,6 @@ exports.getAdherent = async (req, res) => {
 }
 
 exports.addAdherent = async (req, res) => {
-    if (req.file) {
-        path = req.file.path.substring(7)
-    }
-    else {
-        path = req.body.logo || 'none'
-    }
     const adherent = new Adherent({
         entreprise: req.body.entreprise,
         section: req.body.section,
@@ -36,7 +30,7 @@ exports.addAdherent = async (req, res) => {
         telephone: req.body.telephone,
         identifiant: req.body.identifiant,
         siteweb: req.body.siteweb,
-        logo: path,
+        logo: req.body.logo,
         parution: req.body.parution,
         status: req.body.status,
     });
@@ -49,12 +43,6 @@ exports.addAdherent = async (req, res) => {
 }
 
 exports.editAdherent = async (req, res) => {
-    if (req.file) {
-        path = req.file.path.substring(7)
-    }
-    else {
-        path = req.body.logo || 'none'
-    }
     const adherent = {
         entreprise: req.body.entreprise,
         section: req.body.section,
@@ -66,7 +54,7 @@ exports.editAdherent = async (req, res) => {
         telephone: req.body.telephone,
         identifiant: req.body.identifiant,
         siteweb: req.body.siteweb,
-        logo: path,
+        logo: req.body.logo,
         parution: req.body.parution,
         status: req.body.status,
     };

@@ -35,17 +35,11 @@ exports.addMandataire = async (req, res) => {
 }
 
 exports.editMandataire = async (req, res) => {
-    if (req.file) {
-        path = req.file.path.substring(7)
-    }
-    else {
-        path = req.body.logo || 'none'
-    }
     const mandataire = {
         nom: req.body.nom,
         prenom: req.body.prenom,
         description: req.body.description,
-        logo: path
+        logo: req.body.logo
     };
     try {
         const updatedMandataire = await Mandataire.findByIdAndUpdate(req.params.id, mandataire, { new: true });
