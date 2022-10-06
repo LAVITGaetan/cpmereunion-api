@@ -20,8 +20,8 @@ exports.getMandataire = async (req, res) => {
 }
 
 exports.addMandataire = async (req, res) => {
-    if (req.body.file) {
-        path = req.body.file
+    if (req.file) {
+        path = req.file.path.substring(7)
     }
     else {
         path = req.body.logo || 'none'
