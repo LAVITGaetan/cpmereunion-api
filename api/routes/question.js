@@ -22,6 +22,6 @@ router.patch('/:id', verify, Controller.editQuestion)
 router.delete('/:id', verify, Controller.deleteQuestion)
 
 //  Delete questions
-router.delete('/:id/:form', verify, Controller.deleteQuestions)
+router.delete('/all/:form', verify, Controller.deleteQuestions)
 
 module.exports = router;
