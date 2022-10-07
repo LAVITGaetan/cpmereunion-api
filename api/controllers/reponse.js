@@ -45,3 +45,12 @@ exports.deleteReponse = async (req, res) => {
         res.send({ message: error.message })
     }
 }
+
+exports.deleteReponses = async (req, res) => {
+    try {
+        await Reponse.deleteMany({ form_id: req.params.form })
+        res.status(200).send({ message: 'Reponses supprimées' })
+    } catch (error) {
+        res.send({ message: error.message })
+    }
+}

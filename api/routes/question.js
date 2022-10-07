@@ -21,4 +21,7 @@ router.patch('/:id', verify, Controller.editQuestion)
 //  Delete question
 router.delete('/:id', verify, Controller.deleteQuestion)
 
+//  Delete questions
+router.delete('/:id/:form', verify, Controller.deleteQuestions)
+
 module.exports = router;

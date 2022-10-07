@@ -13,8 +13,8 @@ exports.getQuestions = async (req, res) => {
 exports.getReponses = async (req, res) => {
     try {
         const question = await Question.findById(req.params.id);
-        const reponses = await Reponse.find({question_id: req.params.id})
-        res.send({question : question, reponses: reponses})
+        const reponses = await Reponse.find({ question_id: req.params.id })
+        res.send({ question: question, reponses: reponses })
     } catch (error) {
         res.status(500).send({ message: error.message })
         console.log(error.message);
@@ -37,8 +37,8 @@ exports.addQuestion = async (req, res) => {
         res.send(question)
     } catch (error) {
         res.status(500).send({ message: error.message })
-    console.log(error.message);
-}
+        console.log(error.message);
+    }
 }
 
 exports.editQuestion = async (req, res) => {
@@ -53,7 +53,16 @@ exports.editQuestion = async (req, res) => {
 exports.deleteQuestion = async (req, res) => {
     try {
         await Question.findByIdAndRemove(req.params.id)
-        res.status(200).send({ message: 'Question supprimé' })
+        res.status(200).send({ message: 'Question supprimée' })
+    } catch (error) {
+        res.send({ message: error.message })
+    }
+}
+
+exports.deleteQuestions = async (req, res) => {
+    try {
+        await Question.deleteMany({ form_id: req.params.form })
+        res.status(200).send({ message: 'Questions supprimées' })
     } catch (error) {
         res.send({ message: error.message })
     }

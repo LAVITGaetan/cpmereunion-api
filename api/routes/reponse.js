@@ -17,4 +17,8 @@ router.patch('/:id', verify, Controller.editReponse)
 
 // DELETE ONE
 router.delete('/:id', verify, Controller.deleteReponse)
+
+//  Delete MULTIPLE
+router.delete('/:id/:form', verify, Controller.deleteReponses)
+
 module.exports = router;

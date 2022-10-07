@@ -11,12 +11,7 @@ const QuestionSchema = new mongoose.Schema({
         required: true,
     },
     description: {
-        set: {
-            type: Boolean,
-        },
-        content: {
-            type: String,
-        }
+        type: String
     },
     type: {
         type: String,
