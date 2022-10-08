@@ -64,18 +64,10 @@ exports.editSondage = async (req, res) => {
 exports.deleteSondage = async (req, res) => {
     try {
         await Sondage.findByIdAndRemove(req.params.id)
+        await Question.deleteMany({form_id: req.params.id});
+        await Reponse.deleteMany({form_id: req.params.id});
         res.status(200).send({ message: 'Sondage supprimé' })
     } catch (error) {
         res.send({ message: error.message })
-    }
-}
-
-exports.deleteQuestions = async (req, res) => {
-    try {
-        await Question.deleteMany({form_id: req.params.id});
-        res.send('Questions liées au sondage supprimées')
-    } catch (error) {
-        res.status(500).send({ message: error.message })
-        console.log(error.message);
     }
 }
