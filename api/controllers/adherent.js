@@ -69,6 +69,7 @@ exports.editAdherent = async (req, res) => {
 exports.deleteAdherent = async (req, res) => {
     try {
         await Adherent.findByIdAndRemove(req.params.id)
+        await Contact.deleteMany({ id_adherent: req.params.id})
         res.status(200).send({ message: 'Adhérent supprimé' })
     } catch (error) {
         res.send({ message: error.message })
