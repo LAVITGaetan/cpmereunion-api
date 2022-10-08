@@ -19,7 +19,7 @@ const userRoutes = require('./api/routes/user')
 
 // Middlewares
 app.use(cors({
-    origin: ['http://localhost:5500', 'http://localhost:4400'],
+    origin: ['http://localhost:5500', 'http://localhost:4400', 'exp://192.168.0.11:19000'],
     credentials: true,
     methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
 }));
