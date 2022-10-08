@@ -1,4 +1,5 @@
 const Adherent = require('../models/adherent')
+const Contact = require('../models/contact')
 
 exports.getAdherents = async (req, res) => {
     try {
