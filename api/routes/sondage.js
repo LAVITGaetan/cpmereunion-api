@@ -24,6 +24,4 @@ router.patch('/:id', verify, Controller.editSondage)
 //  Delete sondage
 router.delete('/:id', verify, Controller.deleteSondage)
 
-// Delete questions from one sondage
-router.delete('/:id/questions', verify, Controller.deleteQuestions)
 module.exports = router;
