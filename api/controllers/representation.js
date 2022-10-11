@@ -1,4 +1,6 @@
 const Representation = require('../models/representation');
+const Mandat = require('../models/mandat');
+const Mandataire = require('../models/mandataire');
 
 exports.getRepresentations = async (req, res) => {
     try {

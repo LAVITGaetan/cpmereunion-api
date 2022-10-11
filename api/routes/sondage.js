@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router();
 const verify = require('./verifyToken')
+const verifyRole = require('./verifyRole')
 const Controller = require('../controllers/sondage')
 
 // Retrieve all sondages
@@ -22,6 +23,6 @@ router.post('/', verify, Controller.addSondage)
 router.patch('/:id', verify, Controller.editSondage)
 
 //  Delete sondage
-router.delete('/:id', verify, Controller.deleteSondage)
+router.delete('/:id', verify, verifyRole, Controller.deleteSondage)
 
 module.exports = router;

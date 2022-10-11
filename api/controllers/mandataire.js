@@ -52,6 +52,7 @@ exports.editMandataire = async (req, res) => {
 exports.deleteMandataire = async (req, res) => {
     try {
         await Mandataire.findByIdAndRemove(req.params.id)
+        await Representation.deleteMany({id_mandataire: req.params.id})
         res.status(200).send({ message: 'Mandataire supprimé' })
     } catch (error) {
         res.status(404).send({ message: 'Mandataire introuvable' })

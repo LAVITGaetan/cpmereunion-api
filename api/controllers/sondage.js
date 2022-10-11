@@ -16,7 +16,7 @@ exports.getSondage = async (req, res) => {
         const sondage = await Sondage.findById(req.params.id)
         res.status(200).send(sondage)
     } catch (error) {
-        res.status(500).send({ message: error.message })
+        res.status(404).send({ message: 'Sondage introuvable' })
     }
 }
 
@@ -57,7 +57,7 @@ exports.editSondage = async (req, res) => {
         const sondage = await Sondage.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.send({ sondage })
     } catch (error) {
-        res.status(500).send({ message: error.message })
+        res.status(404).send({ message: 'Sondage introuvable' })
     }
 }
 
@@ -68,6 +68,6 @@ exports.deleteSondage = async (req, res) => {
         await Reponse.deleteMany({form_id: req.params.id});
         res.status(200).send({ message: 'Sondage supprimé' })
     } catch (error) {
-        res.send({ message: error.message })
+        res.status(404).send({ message: 'Sondage introuvable' })
     }
 }
