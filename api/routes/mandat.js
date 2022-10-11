@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router();
 const Controller = require('../controllers/mandat')
 const verify = require('./verifyToken')
+const verifyRole = require('./verifyRole')
 
 
 // Retrieve all mandats
@@ -18,7 +19,7 @@ router.post('/', verify, Controller.addMandat)
 router.patch('/:id', verify, Controller.editMandat)
 
 //  Delete mandat
-router.delete('/:id', verify, Controller.deleteMandat)
+router.delete('/:id', verify, verifyRole, Controller.deleteMandat)
 
 // Delete mandat and representations related
 router.delete('/:id/representations', Controller.deleteRepresentation)

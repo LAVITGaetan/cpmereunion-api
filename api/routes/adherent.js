@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router();
-const Controller = require('../controllers/adherent')
+const Controller = require('../controllers/adherent');
+const verifyRole = require('./verifyRole');
 const verify = require('./verifyToken')
 
 // Get all adhérents
@@ -16,7 +17,7 @@ router.post('/', verify, Controller.addAdherent)
 router.patch('/:id', verify, Controller.editAdherent)
 
 // Delete adhérent
-router.delete('/:id', verify, Controller.deleteAdherent)
+router.delete('/:id', verify, verifyRole, Controller.deleteAdherent)
 
 // PATCH status
 router.patch('/status/:id/:boolean', verify, Controller.editStatus)

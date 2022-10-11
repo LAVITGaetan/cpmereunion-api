@@ -15,7 +15,7 @@ exports.getAdherent = async (req, res) => {
         const adherent = await Adherent.findById(req.params.id)
         res.status(200).send(adherent)
     } catch (error) {
-        res.status(500).send({ message: error.message })
+        res.status(404).send({ message: 'Adhérent introuvable' })
     }
 }
 
@@ -63,7 +63,7 @@ exports.editAdherent = async (req, res) => {
         const updatedAdherent = await Adherent.findByIdAndUpdate(req.params.id, adherent, { new: true });
         res.send({ updatedAdherent })
     } catch (error) {
-        res.status(500).send({ message: error.message })
+        res.status(404).send({ message: 'Adhérent introuvable' })
     }
 }
 
@@ -73,7 +73,7 @@ exports.deleteAdherent = async (req, res) => {
         await Contact.deleteMany({ id_adherent: req.params.id})
         res.status(200).send({ message: 'Adhérent supprimé' })
     } catch (error) {
-        res.send({ message: error.message })
+        res.status(404).send({ message: 'Adhérent introuvable' })
     }
 }
 

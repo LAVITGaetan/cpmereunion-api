@@ -3,6 +3,6 @@ module.exports = function(req, res, next) {
     if(req.user.role === 'admin') {
         next();
     } else {
-        res.status(403).send({message: 'Member cannot use this ressource'})
+        res.status(403).send({message: 'Unable to use this ressource'})
     }
 }

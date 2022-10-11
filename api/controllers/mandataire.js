@@ -15,7 +15,7 @@ exports.getMandataire = async (req, res) => {
         const mandataire = await Mandataire.findById(req.params.id)
         res.send(mandataire)
     } catch (error) {
-        res.status(500).send({ message: error.message })
+        res.status(404).send({ message: 'Mandataire introuvable' })
     }
 }
 
@@ -45,7 +45,7 @@ exports.editMandataire = async (req, res) => {
         const updatedMandataire = await Mandataire.findByIdAndUpdate(req.params.id, mandataire, { new: true });
         res.send({ updatedMandataire })
     } catch (error) {
-        res.status(500).send({ message: error.message })
+        res.status(404).send({ message: 'Mandataire introuvable' })
     }
 }
 
@@ -54,7 +54,7 @@ exports.deleteMandataire = async (req, res) => {
         await Mandataire.findByIdAndRemove(req.params.id)
         res.status(200).send({ message: 'Mandataire supprimé' })
     } catch (error) {
-        res.send({ message: error.message })
+        res.status(404).send({ message: 'Mandataire introuvable' })
     }
 }
 

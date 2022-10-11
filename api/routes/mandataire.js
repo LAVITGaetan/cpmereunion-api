@@ -28,7 +28,7 @@ router.patch('/:id',
     Controller.editMandataire)
 
 //  Delete mandataire
-router.delete('/:id', verify, Controller.deleteMandataire)
+router.delete('/:id', verify, verifyRole, Controller.deleteMandataire)
 
 // Delete representation and mandats related
 router.delete('/:id/representations', Controller.deleteRepresentation)
