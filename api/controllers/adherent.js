@@ -3,7 +3,7 @@ const Contact = require('../models/contact')
 
 exports.getAdherents = async (req, res) => {
     try {
-        const adherents = await Adherent.find();
+        const adherents = await Adherent.find().sort({createdAt: -1});
         res.status(200).send(adherents)
     } catch (error) {
         res.status(500).send({ message: error.message })

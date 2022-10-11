@@ -51,4 +51,6 @@ const AdherentSchema = new mongoose.Schema({
     },
 });
 
+AdherentSchema.set('timestamps', true)
+
 module.exports = new mongoose.model('Adherent', AdherentSchema);
