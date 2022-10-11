@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router();
 const Controller = require('../controllers/representation')
 const verify = require('./verifyToken')
+const ValidateSchema = require('./validate');
+const representationSchema = require('../validations/representation');
 
 // Retrieve all representations
 router.get('/', verify, Controller.getRepresentations)
@@ -10,10 +12,10 @@ router.get('/', verify, Controller.getRepresentations)
 router.get('/:id', verify, Controller.getRepresentation)
 
 // Add representation
-router.post('/', verify, Controller.addRepresentation)
+router.post('/', verify, representationSchema, ValidateSchema, Controller.addRepresentation)
 
 // Update representation
-router.patch('/:id', verify, Controller.editRepresentation)
+router.patch('/:id', verify, representationSchema, ValidateSchema, Controller.editRepresentation)
 
 //  Delete representation
 router.delete('/:id', verify, Controller.deleteRepresentation)

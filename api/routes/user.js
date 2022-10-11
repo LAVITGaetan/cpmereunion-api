@@ -5,6 +5,8 @@ const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const verify = require('./verifyToken')
+const ValidateSchema = require('./validate');
+const userSchema = require('../validations/user');
 
 const rateLimit = require('express-rate-limit')
 const limiter = rateLimit({
@@ -21,7 +23,7 @@ router.get('/', verify, Controller.getUsers)
 router.get('/:id', verify, Controller.getUser)
 
 // Add user
-router.post('/', verify, async (req, res) => {
+router.post('/', verify, userSchema, ValidateSchema, async (req, res) => {
 
     // Check if email is already existing
     const emailExist = await User.findOne({ email: req.body.email })
@@ -83,7 +85,7 @@ router.post('/login', limiter, async (req, res) => {
 })
 
 // Update user
-router.patch('/:id', verify, Controller.editUser)
+router.patch('/:id', verify, userSchema, ValidateSchema, Controller.editUser)
 
 // Delete user
 router.delete('/:id', verify, Controller.deleteUser)

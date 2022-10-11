@@ -3,6 +3,8 @@ const router = express.Router();
 const Controller = require('../controllers/mandat')
 const verify = require('./verifyToken')
 const verifyRole = require('./verifyRole')
+const ValidateSchema = require('./validate');
+const mandatSchema = require('../validations/mandat');
 
 
 // Retrieve all mandats
@@ -12,11 +14,10 @@ router.get('/', verify, Controller.getMandats)
 router.get('/:id', verify, Controller.getMandat)
 
 // Add mandat
-router.post('/', verify, Controller.addMandat)
-
+router.post('/', verify, mandatSchema, ValidateSchema, Controller.addMandat)
 
 // Update mandat
-router.patch('/:id', verify, Controller.editMandat)
+router.patch('/:id', verify, mandatSchema, ValidateSchema, Controller.editMandat)
 
 //  Delete mandat
 router.delete('/:id', verify, verifyRole, Controller.deleteMandat)

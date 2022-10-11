@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const verify = require('./verifyToken');
 const Controller = require('../controllers/mandataire');
-const Validate = require('./validate');
+const ValidateSchema = require('./validate');
 const verifyRole = require('./verifyRole');
 const mandataireSchema = require('../validations/mandataire');
 
@@ -17,14 +17,14 @@ router.post('/',
     verify,
     verifyRole,
     mandataireSchema,
-    Validate,
+    ValidateSchema,
     Controller.addMandataire)
 
 // Update mandataire
 router.patch('/:id', 
     verify,
     mandataireSchema,
-    Validate,
+    ValidateSchema,
     Controller.editMandataire)
 
 //  Delete mandataire

@@ -3,6 +3,8 @@ const router = express.Router();
 const Controller = require('../controllers/adherent');
 const verifyRole = require('./verifyRole');
 const verify = require('./verifyToken')
+const ValidateSchema = require('./validate');
+const adherentSchema = require('../validations/adherent');
 
 // Get all adhérents
 router.get('/', verify, Controller.getAdherents)
@@ -11,10 +13,12 @@ router.get('/', verify, Controller.getAdherents)
 router.get('/:id', verify, Controller.getAdherent)
 
 // Add adhérent
-router.post('/', verify, Controller.addAdherent)
+router.post('/', verify, adherentSchema,
+    ValidateSchema, Controller.addAdherent)
 
 // Update adhérent
-router.patch('/:id', verify, Controller.editAdherent)
+router.patch('/:id', verify,adherentSchema,
+ValidateSchema, Controller.editAdherent)
 
 // Delete adhérent
 router.delete('/:id', verify, verifyRole, Controller.deleteAdherent)

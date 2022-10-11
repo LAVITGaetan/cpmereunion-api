@@ -1,7 +1,9 @@
 const { body } = require('express-validator');
 
 module.exports = [
-    body('nom').escape().isLength({min:3}),
+    body('nom').escape(),
     body('prenom').escape(),
-    body('description').escape(),
+    body('role').escape(),
+    body('email').escape(),
+    body('identifiant').escape(),
 ]
