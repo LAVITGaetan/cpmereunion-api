@@ -58,12 +58,11 @@ router.post('/login', limiter, async (req, res) => {
             // Check if email exist
             const user = await User.findOne({ email: req.body.email })
             if (!user) {
-                res.send({ message: 'Identifiant incorrect' })
+                res.send({ message: 'Identifiant ou mot de passe incorrect' })
             }
-    
             // Check if passwords match
             const validPassword = await bcrypt.compare(req.body.identifiant, user.identifiant)
-            if (!validPassword) return res.send({ message: 'Mot de passe incorrect' })
+            if (!validPassword) return res.send({ message: 'Identifiant ou mot de passe incorrect' })
     
             // Set token
             const token = jwt.sign({ _id: user._id, role: user.role }, process.env.SECRET_TOKEN, { expiresIn: "24h" });
@@ -74,11 +73,9 @@ router.post('/login', limiter, async (req, res) => {
             })
             res.header('auth-token', token).send({ token: token });
         }
-        else {
-            res.send({ message: 'Email and password must be filled' })
-        }
+        res.end();
     } catch (err) {
-        res.send({message: err.message})
+        res.send({message: 'Une erreur est survenue'})
     }
     
 
