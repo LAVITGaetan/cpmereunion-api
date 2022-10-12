@@ -57,7 +57,7 @@ router.post('/login', limiter, async (req, res) => {
         // Check if email exist
         const user = await User.findOne({ email: req.body.email })
         if (!user) {
-            res.send({ message: 'Identifiant ou mot de passe incorrect' })
+            return res.send({ message: 'Identifiant ou mot de passe incorrect' })
         }
         // Check if passwords match
         const validPassword = await bcrypt.compare(req.body.identifiant, user.identifiant)
@@ -70,12 +70,10 @@ router.post('/login', limiter, async (req, res) => {
             httpOnly: true,
             maxAge: 86400 * 1000
         })
-        res.header('auth-token', token).send({ token: token });
+        return res.header('auth-token', token).send({ token: token });
     } catch (err) {
         res.send({ message: 'Une erreur est survenue' })
     }
-
-
 })
 
 // Update user
