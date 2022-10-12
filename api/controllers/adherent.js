@@ -63,7 +63,7 @@ exports.editAdherent = async (req, res) => {
         const updatedAdherent = await Adherent.findByIdAndUpdate(req.params.id, adherent, { new: true });
         res.send({ updatedAdherent })
     } catch (error) {
-        res.status(404).send({ message: 'Adhérent introuvable' })
+        res.status(404).send({ message: error.message })
     }
 }
 
