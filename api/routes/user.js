@@ -10,10 +10,10 @@ const userSchema = require('../validations/user');
 
 const rateLimit = require('express-rate-limit')
 const limiter = rateLimit({
-	windowMs: 1 * 60 * 1000,
-	max: 10,
-	standardHeaders: true,
-	legacyHeaders: false,
+    windowMs: 1 * 60 * 1000,
+    max: 10,
+    standardHeaders: true,
+    legacyHeaders: false,
 })
 
 // Get all users
@@ -54,30 +54,27 @@ router.post('/', verify, userSchema, ValidateSchema, async (req, res) => {
 // Login
 router.post('/login', limiter, async (req, res) => {
     try {
-        if (req.body.email && req.body.identifiant) {
-            // Check if email exist
-            const user = await User.findOne({ email: req.body.email })
-            if (!user) {
-                res.send({ message: 'Identifiant ou mot de passe incorrect' })
-            }
-            // Check if passwords match
-            const validPassword = await bcrypt.compare(req.body.identifiant, user.identifiant)
-            if (!validPassword) return res.send({ message: 'Identifiant ou mot de passe incorrect' })
-    
-            // Set token
-            const token = jwt.sign({ _id: user._id, role: user.role }, process.env.SECRET_TOKEN, { expiresIn: "24h" });
-            res.cookie("token", token, {
-                secure: true,
-                httpOnly: true,
-                maxAge: 86400 * 1000
-            })
-            res.header('auth-token', token).send({ token: token });
+        // Check if email exist
+        const user = await User.findOne({ email: req.body.email })
+        if (!user) {
+            res.send({ message: 'Identifiant ou mot de passe incorrect' })
         }
-        res.end();
+        // Check if passwords match
+        const validPassword = await bcrypt.compare(req.body.identifiant, user.identifiant)
+        if (!validPassword) return res.send({ message: 'Identifiant ou mot de passe incorrect' })
+
+        // Set token
+        const token = jwt.sign({ _id: user._id, role: user.role }, process.env.SECRET_TOKEN, { expiresIn: "24h" });
+        res.cookie("token", token, {
+            secure: true,
+            httpOnly: true,
+            maxAge: 86400 * 1000
+        })
+        res.header('auth-token', token).send({ token: token });
     } catch (err) {
-        res.send({message: 'Une erreur est survenue'})
+        res.send({ message: 'Une erreur est survenue' })
     }
-    
+
 
 })
 
