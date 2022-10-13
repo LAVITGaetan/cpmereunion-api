@@ -70,7 +70,7 @@ router.post('/login', limiter, async (req, res) => {
             httpOnly: true,
             maxAge: 86400 * 1000
         })
-        return res.header('auth-token', token).send({ token: token });
+        return res.header('auth-token', token).send({ token: token, role: user.role });
     } catch (err) {
         res.send({ message: 'Une erreur est survenue' })
     }
