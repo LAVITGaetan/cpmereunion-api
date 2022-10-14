@@ -7,10 +7,10 @@ const ValidateSchema = require('./validate');
 const sondageSchema = require('../validations/sondage');
 
 // Retrieve all sondages
-router.get('/', verify, Controller.getSondages)
+router.get('/', Controller.getSondages)
 
 // Retrieve one sondage
-router.get('/:id', verify, Controller.getSondage)
+router.get('/:id', Controller.getSondage)
 
 // Retrieve questions from one sondage
 router.get('/:id/questions', verify, Controller.getQuestions)
