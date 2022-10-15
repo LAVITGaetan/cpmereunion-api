@@ -1,8 +1,15 @@
+const jwt = require('jsonwebtoken');
 
 module.exports = function (req, res, next) {
-    if (req.user.role === 'repondant' ||'admin' || 'member') {
+    const token = req.header('auth-token') || req.cookies.token;
+    if (!token) return res.status(401).send('Accès refusé')
+    try {
+        const verified = jwt.verify(token, process.env.SECRET_TOKEN)
+        // accessible depuis les routes
+        req.user = verified;
         next();
-    } else {
-        res.status(403).send({ message: 'Unable to use this ressource' })
+    } catch (error) {
+        console.log(error);
+        res.status(401).send({message: 'Token invalide'})
     }
 }

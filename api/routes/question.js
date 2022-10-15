@@ -14,7 +14,7 @@ router.get('/:id/reponses', verify, Controller.getReponses)
 router.get('/:id', verify, Controller.getQuestion)
 
 // Add question
-router.post('/', verify, verifyRepondant, Controller.addQuestion)
+router.post('/', verifyRepondant, Controller.addQuestion)
 
 // Update question
 router.patch('/:id', verify, Controller.editQuestion)
