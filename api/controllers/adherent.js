@@ -92,3 +92,22 @@ exports.editParution = async (req, res) => {
     if (!adherent) res.status(404).send({ message: `Cannot get adherent with id : ${req.params.id}` })
     res.send(adherent);
 }
+
+exports.login = async (req, res) => {
+    try {
+        // Check if email exist
+        const adherent = await Adherent.findOne({ email: req.body.email })
+        if (!adherent) {
+            return res.send({ message: 'Identifiant ou mot de passe incorrect' })
+        }
+        if(adherent.status) {
+            if(req.body.identifiant === adherent.identifiant) {
+                return res.send({ message:'connexion réussi'})
+            }
+            return res.send({message: 'Identifiant ou mot de pass incorrect'})
+        }
+        return res.send({message: 'Adhérent inactif'})
+    } catch (err) {
+        res.send({ message: 'Une erreur est survenue' })
+    }
+}

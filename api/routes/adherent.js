@@ -29,4 +29,7 @@ router.patch('/status/:id/:boolean', verify, Controller.editStatus)
 // PATCH parution
 router.patch('/parution/:id/:boolean', verify, Controller.editParution)
 
+//LOGIN 
+router.post('/login', Controller.login)
+
 module.exports = router;
