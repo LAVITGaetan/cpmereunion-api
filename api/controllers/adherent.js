@@ -1,9 +1,10 @@
 const Adherent = require('../models/adherent')
 const Contact = require('../models/contact')
+const jwt = require('jsonwebtoken');
 
 exports.getAdherents = async (req, res) => {
     try {
-        const adherents = await Adherent.find().sort({createdAt: -1});
+        const adherents = await Adherent.find().sort({ createdAt: -1 });
         res.status(200).send(adherents)
     } catch (error) {
         res.status(500).send({ message: error.message })
@@ -70,7 +71,7 @@ exports.editAdherent = async (req, res) => {
 exports.deleteAdherent = async (req, res) => {
     try {
         await Adherent.findByIdAndRemove(req.params.id)
-        await Contact.deleteMany({ id_adherent: req.params.id})
+        await Contact.deleteMany({ id_adherent: req.params.id })
         res.status(200).send({ message: 'Adhérent supprimé' })
     } catch (error) {
         res.status(404).send({ message: 'Adhérent introuvable' })
@@ -100,14 +101,21 @@ exports.login = async (req, res) => {
         if (!adherent) {
             return res.send({ message: 'Identifiant ou mot de passe incorrect' })
         }
-        if(adherent.status) {
-            if(req.body.identifiant === adherent.identifiant) {
-                return res.send({ message:'connexion réussi'})
+        if (adherent.status) {
+            if (req.body.identifiant === adherent.identifiant) {
+                const token = jwt.sign({ role: 'repondant' }, process.env.SECRET_TOKEN, { expiresIn: "1h" });
+                res.cookie("token", token, {
+                    secure: true,
+                    httpOnly: true,
+                    maxAge: 3600 * 1000
+                })
+                return res.send({ token: token })
             }
-            return res.send({message: 'Identifiant ou mot de pass incorrect'})
+            return res.send({ message: 'Identifiant ou mot de pass incorrect' })
         }
-        return res.send({message: 'Adhérent inactif'})
+        return res.send({ message: 'Adhérent inactif' })
     } catch (err) {
+        console.log(err);
         res.send({ message: 'Une erreur est survenue' })
     }
 }
