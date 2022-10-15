@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router();
 const verify = require('./verifyToken')
 const Controller = require('../controllers/question')
-const verifyRepondant = require('./verifyRepondant')
 
 // Retrieve all questions
 router.get('/', verify, Controller.getQuestions)
@@ -14,7 +13,7 @@ router.get('/:id/reponses', verify, Controller.getReponses)
 router.get('/:id', verify, Controller.getQuestion)
 
 // Add question
-router.post('/', verifyRepondant, Controller.addQuestion)
+router.post('/', verify, Controller.addQuestion)
 
 // Update question
 router.patch('/:id', verify, Controller.editQuestion)
