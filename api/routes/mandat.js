@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router();
 const Controller = require('../controllers/mandat')
 const verify = require('./verifyToken')
-const verifyRole = require('./verifyRole')
 const ValidateSchema = require('./validate');
 const mandatSchema = require('../validations/mandat');
 
@@ -20,7 +19,7 @@ router.post('/', verify, mandatSchema, ValidateSchema, Controller.addMandat)
 router.patch('/:id', verify, mandatSchema, ValidateSchema, Controller.editMandat)
 
 //  Delete mandat
-router.delete('/:id', verify, verifyRole, Controller.deleteMandat)
+router.delete('/:id', verify, Controller.deleteMandat)
 
 // Delete mandat and representations related
 router.delete('/:id/representations', Controller.deleteRepresentation)

@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router();
 const Controller = require('../controllers/adherent');
-const verifyRole = require('./verifyRole');
 const verify = require('./verifyToken')
 const ValidateSchema = require('./validate');
 const adherentSchema = require('../validations/adherent');
@@ -21,7 +20,7 @@ router.patch('/:id', verify,adherentSchema,
 ValidateSchema, Controller.editAdherent)
 
 // Delete adhérent
-router.delete('/:id', verify, verifyRole, Controller.deleteAdherent)
+router.delete('/:id', verify, Controller.deleteAdherent)
 
 // PATCH status
 router.patch('/status/:id/:boolean', verify, Controller.editStatus)
