@@ -12,7 +12,7 @@ router.get('/', Controller.getSondages)
 router.get('/:id', Controller.getSondage)
 
 // Retrieve questions from one sondage
-router.get('/:id/questions', Controller.getQuestions)
+router.get('/:id/questions', verify, Controller.getQuestions)
 
 // Retrieve reponses from one sondage
 router.get('/:id/reponses', verify, Controller.getReponses)
