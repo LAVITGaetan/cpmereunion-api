@@ -57,7 +57,8 @@ exports.editSondage = async (req, res) => {
         const sondage = await Sondage.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.send({ sondage })
     } catch (error) {
-        res.status(404).send({ message: 'Sondage introuvable' })
+        console.log(error);
+        res.status(400).send({ message: 'Sondage introuvable' })
     }
 }
 
