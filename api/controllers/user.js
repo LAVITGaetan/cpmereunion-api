@@ -34,7 +34,14 @@ exports.addUser = async (req, res) => {
 // Edit user
 exports.editUser = async (req, res) => {
     try {
-        const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        let payload = {
+            nom: req.body.nom,
+            prenom: req.body.prenom,
+            email: req.body.email,
+            identifiant: req.body.identifiant,
+            role: req.body.role,
+        }
+        const user = await User.findByIdAndUpdate(req.params.id, payload, { new: true });
         res.send({ user })
     } catch (error) {
         res.status(500).send({ message: error.message })
