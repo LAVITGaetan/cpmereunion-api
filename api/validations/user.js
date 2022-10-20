@@ -5,5 +5,4 @@ module.exports = [
     body('prenom').escape(),
     body('role').escape(),
     body('email').escape(),
-    body('identifiant').escape(),
 ]
