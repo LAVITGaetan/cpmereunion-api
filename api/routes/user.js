@@ -64,7 +64,7 @@ router.post('/login', limiter, async (req, res) => {
         if (!validPassword) return res.send({ message: 'Identifiant ou mot de passe incorrect' })
 
         // Set token
-        const token = jwt.sign({ _id: user._id, role: user.role }, process.env.SECRET_TOKEN, { expiresIn: "24h" });
+        const token = jwt.sign({ _id: user._id, role: user.role, nom: user.nom, prenom: user.prenom }, process.env.SECRET_TOKEN, { expiresIn: "24h" });
         res.cookie("token", token, {
             secure: true,
             httpOnly: true,

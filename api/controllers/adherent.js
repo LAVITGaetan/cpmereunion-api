@@ -1,5 +1,6 @@
-const Adherent = require('../models/adherent')
-const Contact = require('../models/contact')
+const Adherent = require('../models/adherent');
+const Contact = require('../models/contact');
+const Log = require('../models/log');
 const jwt = require('jsonwebtoken');
 
 exports.getAdherents = async (req, res) => {
@@ -38,6 +39,16 @@ exports.addAdherent = async (req, res) => {
     });
     try {
         await adherent.save();
+        const log = new Log({
+            auteur: req.user.nom + ' ' + req.user.prenom,
+            method: 'POST',
+            ressource: 'Adherents',
+            date: new Date(),
+            heure: new Date().getHours(),
+            minute: new Date().getMinutes(),
+            id_ressource: adherent._id
+        })
+        await log.save()
         res.send(adherent)
     } catch (error) {
         res.status(500).send({ message: error.message })
