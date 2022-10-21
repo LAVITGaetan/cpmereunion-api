@@ -16,6 +16,7 @@ const sondageRoutes = require('./api/routes/sondage')
 const questionRoutes = require('./api/routes/question')
 const reponseRoutes = require('./api/routes/reponse')
 const userRoutes = require('./api/routes/user')
+const logRoutes = require('./api/routes/log')
 
 // Middlewares
 app.use(cors({
@@ -47,6 +48,7 @@ app.use('/api/sondages', sondageRoutes)
 app.use('/api/questions', questionRoutes)
 app.use('/api/reponses', reponseRoutes)
 app.use('/api/users', userRoutes)
+app.use('/api/logs', logRoutes)
 
 const PORT = process.env.PORT || 3000;
 
