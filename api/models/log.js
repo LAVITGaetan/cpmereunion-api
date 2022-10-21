@@ -5,7 +5,7 @@ const LogSchema = new mongoose.Schema({
     auteur: {
         type: String,
     },
-    action: {
+    method: {
         type: String,
     },
     ressource: {

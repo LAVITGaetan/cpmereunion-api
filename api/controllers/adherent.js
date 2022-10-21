@@ -73,6 +73,16 @@ exports.editAdherent = async (req, res) => {
     };
     try {
         const updatedAdherent = await Adherent.findByIdAndUpdate(req.params.id, adherent, { new: true });
+        const log = new Log({
+            auteur: req.user.nom + ' ' + req.user.prenom,
+            method: 'PATCH',
+            ressource: 'Adherents',
+            date: new Date(),
+            heure: new Date().getHours(),
+            minute: new Date().getMinutes(),
+            id_ressource: updatedAdherent._id
+        })
+        await log.save()
         res.send({ updatedAdherent })
     } catch (error) {
         res.status(404).send({ message: error.message })
@@ -83,6 +93,16 @@ exports.deleteAdherent = async (req, res) => {
     try {
         await Adherent.findByIdAndRemove(req.params.id)
         await Contact.deleteMany({ id_adherent: req.params.id })
+        const log = new Log({
+            auteur: req.user.nom + ' ' + req.user.prenom,
+            method: 'DELETE',
+            ressource: 'Adherents',
+            date: new Date(),
+            heure: new Date().getHours(),
+            minute: new Date().getMinutes(),
+            id_ressource: adherent._id
+        })
+        await log.save()
         res.status(200).send({ message: 'Adhérent supprimé' })
     } catch (error) {
         res.status(404).send({ message: 'Adhérent introuvable' })
