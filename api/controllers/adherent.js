@@ -100,7 +100,7 @@ exports.deleteAdherent = async (req, res) => {
             date: new Date(),
             heure: new Date().getHours(),
             minute: new Date().getMinutes(),
-            id_ressource: adherent._id
+            id_ressource: 'Null'
         })
         await log.save()
         res.status(200).send({ message: 'Adhérent supprimé' })
