@@ -41,7 +41,7 @@ exports.addAdherent = async (req, res) => {
         await adherent.save();
         const log = new Log({
             auteur: req.user.nom + ' ' + req.user.prenom,
-            method: 'POST',
+            method: 'Création',
             ressource: 'Adherents',
             date: new Date(),
             heure: new Date().getHours(),
@@ -75,7 +75,7 @@ exports.editAdherent = async (req, res) => {
         const updatedAdherent = await Adherent.findByIdAndUpdate(req.params.id, adherent, { new: true });
         const log = new Log({
             auteur: req.user.nom + ' ' + req.user.prenom,
-            method: 'PATCH',
+            method: 'Mise à jour',
             ressource: 'Adherents',
             date: new Date(),
             heure: new Date().getHours(),
@@ -95,7 +95,7 @@ exports.deleteAdherent = async (req, res) => {
         await Contact.deleteMany({ id_adherent: req.params.id })
         const log = new Log({
             auteur: req.user.nom + ' ' + req.user.prenom,
-            method: 'DELETE',
+            method: 'Suppression',
             ressource: 'Adherents',
             date: new Date(),
             heure: new Date().getHours(),
