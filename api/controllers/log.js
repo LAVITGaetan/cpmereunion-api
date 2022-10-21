@@ -1,4 +1,4 @@
-const Log = require('../models/contact')
+const Log = require('../models/logs')
 
 exports.getLogs = async (req, res) => {
     try {
