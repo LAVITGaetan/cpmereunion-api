@@ -35,14 +35,8 @@ exports.addMandataire = async (req, res) => {
 }
 
 exports.editMandataire = async (req, res) => {
-    const mandataire = {
-        nom: req.body.nom,
-        prenom: req.body.prenom,
-        description: req.body.description,
-        logo: req.body.logo
-    };
     try {
-        const updatedMandataire = await Mandataire.findByIdAndUpdate(req.params.id, mandataire, { new: true });
+        const updatedMandataire = await Mandataire.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.send({ updatedMandataire })
     } catch (error) {
         res.status(404).send({ message: 'Mandataire introuvable' })
