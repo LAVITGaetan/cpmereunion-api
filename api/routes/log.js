@@ -7,6 +7,6 @@ const Controller = require('../controllers/log')
 router.get('/', verify, Controller.getLogs)
 
 // POST 
-router.get('/', verify, Controller.addLog)
+router.post('/', verify, Controller.addLog)
 
 module.exports = router;
